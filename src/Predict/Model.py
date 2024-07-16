@@ -131,27 +131,4 @@ def Model(original_path):
         df_combined = load_all_data(uploaded_file)
 
         # Hiển thị dashboard tổng quan
-        file_model = buid_model(df_combined)
-        
-        if st.button("Update mô hình - dữ liệu vào hệ thống"):
-            # Xóa file cũ trong thư mục ./src/model
-            model_dir = './model'
-            if not os.path.exists(model_dir):
-                os.makedirs(model_dir)
-            for filename in os.listdir(model_dir):
-                file_path = os.path.join(model_dir, filename)
-                try:
-                    if os.path.isfile(file_path) or os.path.islink(file_path):
-                        os.unlink(file_path)
-                    elif os.path.isdir(file_path):
-                        shutil.rmtree(file_path)
-                except Exception as e:
-                    st.write(f'Failed to delete {file_path}. Reason: {e}')
-            
-            # Lưu mô hình vào thư mục ./src/model
-            model_path = os.path.join(model_dir, 'model_xgb.pkl')
-            shutil.move(file_model, model_path)
-            
-            # Tải dữ liệu lên MySQL
-            df_combined.to_sql('adidas_4', con=engine, if_exists='replace', index=False)
-            st.write("Dữ liệu đã được cập nhật lên MySQL")
+        buid_model(df_combined)
