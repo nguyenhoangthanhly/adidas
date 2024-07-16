@@ -5,7 +5,7 @@ import streamlit as st
 
 conn=mysql.connector.connect(
     host="localhost",
-    port="3306",
+    port="3307",
     user="root",
     passwd="",
     db="datn_dss"
